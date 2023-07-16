@@ -43,12 +43,12 @@ class UpPairedDataset(Dataset):
                 print("         $$$$$ Do not resize the image, crop_size is {} !!!!".format(crop_size)) 
                 
             elif int(crop_size) == 256 and format != 'png':    # not segmentation dataset, which means, resize, then crop
-                trs = [transforms.Resize(img_size, interpolation=Image.ANTIALIAS), transforms.RandomCrop(crop_size)]
+                trs = [transforms.Resize(img_size), transforms.RandomCrop(crop_size)]
                 print("      $$$$$ The dataset is not hair and segmentation dataset #####")
                 
             else:
                 print("     ^^^^^^^ Operating on Hairs  dataset @@@@@@@")
-                trs = [transforms.RandomCrop(crop_size), transforms.Resize(img_size, interpolation=Image.ANTIALIAS)]
+                trs = [transforms.RandomCrop(crop_size), transforms.Resize(img_size)]
                 
             trs.append(transforms.RandomHorizontalFlip())
         else:
@@ -56,11 +56,11 @@ class UpPairedDataset(Dataset):
                 trs = [transforms.CenterCrop(crop_size)]
                 
             elif int(crop_size) == 256 and format != 'png':
-                trs = [transforms.Resize(img_size, interpolation=Image.ANTIALIAS), transforms.CenterCrop(crop_size)]
+                trs = [transforms.Resize(img_size), transforms.CenterCrop(crop_size)]
                 
             else:
                 print("     ^^^^^^^ Operating on Hairs  dataset @@@@@@@")
-                trs = [transforms.CenterCrop(crop_size), transforms.Resize(img_size, interpolation=Image.ANTIALIAS)]
+                trs = [transforms.CenterCrop(crop_size), transforms.Resize(img_size)]
                 
         trs.append(transforms.ToTensor())
         trs.append(transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)))
